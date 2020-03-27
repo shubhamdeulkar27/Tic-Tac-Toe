@@ -1,3 +1,6 @@
 #!/bin/bash -x
 
-#TIC TAC TOE GAME
+function reset(){
+	board=(. . . . . . . . .)
+}
+reset
