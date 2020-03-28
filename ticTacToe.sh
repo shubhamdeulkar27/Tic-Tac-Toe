@@ -190,47 +190,47 @@ function checkBlockMove(){
 
 #FUNCTION TO PLAYING GAME
 function playGame(){
-reset
-assign
-toss
-print
-while [ true ]
-do
-	(( turnCounter++ ))
-	if [ $player == $PLAYER ]
-	then
-		playerPlay
-	elif [ $player == $CPU ]
-	then
-		cpuPlay
-	fi
+	reset
+	assign
+	toss
 	print
-	gameCheck
-
-	#CHECKING WIN OR TIE OR TURN PLAYER
-	if [ $gameStatus != 1 ]
-	then
-		echo "Game Over"
-		echo "$player Win"
-		break
-	elif [ $gameStatus == 1 ] && [ $turnCounter == 9 ]
-	then
-		echo "Its A Tie"
-		break
-	else
+	while [ true ]
+	do
+		(( turnCounter++ ))
 		if [ $player == $PLAYER ]
 		then
-			player=$CPU
-		else
-			player=$PLAYER
+			playerPlay
+		elif [ $player == $CPU ]
+		then
+			cpuPlay
 		fi
-	fi
+		print
+		gameCheck
 
-	if [ $turnCounter == 9 ]
-	then
-		break
-	fi
-done
+		#CHECKING WIN OR TIE OR TURN PLAYER
+		if [ $gameStatus != 1 ]
+		then
+			echo "Game Over"
+			echo "$player Win"
+			break
+		elif [ $gameStatus == 1 ] && [ $turnCounter == 9 ]
+		then
+			echo "Its A Tie"
+			break
+		else
+			if [ $player == $PLAYER ]
+			then
+				player=$CPU
+			else
+				player=$PLAYER
+			fi
+		fi
+
+		if [ $turnCounter == 9 ]
+		then
+			break
+		fi
+	done
 }
 
 playGame
