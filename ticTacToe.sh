@@ -188,7 +188,8 @@ function checkBlockMove(){
 	checkOpMove 2 4 6
 }
 
-#PLAYING GAME
+#FUNCTION TO PLAYING GAME
+function playGame(){
 reset
 assign
 toss
@@ -230,3 +231,6 @@ do
 		break
 	fi
 done
+}
+
+playGame
