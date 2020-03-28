@@ -57,6 +57,7 @@ function playerPlay(){
 		playerPlay
 	fi
 }
+
 #FOR CPU(COMPUTER)
 function cpuPlay(){
 	local index=0
