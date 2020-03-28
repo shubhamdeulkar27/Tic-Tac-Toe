@@ -46,9 +46,9 @@ function print(){
 #FUNCTIONS TO PLAY GAME
 #FOR PLAYER
 function playerPlay(){
-	read -p "Enter r : " x
-	read -p "Enter c : " y
-	local index=$(( $x*3+$y ))
+	read -p "Enter r : " r
+	read -p "Enter c : " c
+	local index=$(( $r*3+$c ))
 	if [ ${board[$index]} == "." ]
 	then
 		board[$index]=$PLAYER
@@ -96,9 +96,9 @@ function cpuPlay(){
 	then
 		index=4
 	else
-		x=$(( RANDOM%3 ))
-		y=$(( RANDOM%3 ))
-		index=$(( $x*3+$y ))
+		r=$(( RANDOM%3 ))
+		c=$(( RANDOM%3 ))
+		index=$(( $r*3+$c ))
 	fi
 	if [ ${board[$index]} == "." ]
 	then
