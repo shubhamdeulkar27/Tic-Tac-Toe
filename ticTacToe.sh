@@ -90,6 +90,11 @@ function cpuPlay(){
 				echo "Invalid"
 			;;
 		esac
+	elif [ $winMove == "." ] && [ $blockMove == "." ] &&
+		  [ ${board[0]} != "." ] || [ ${board[2]} != "." ] ||
+		  [ ${board[6]} != "." ] || [ ${board[8]} != "." ]
+	then
+		index=4
 	else
 		x=$(( RANDOM%3 ))
 		y=$(( RANDOM%3 ))
