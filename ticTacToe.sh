@@ -1,5 +1,7 @@
 #!/bin/bash -x
 
+#VARIABLES
+winMove="."
 #FUNCTION TO RESET THE BOARD
 function reset(){
 	gameStatus=1
@@ -40,6 +42,7 @@ function print(){
 }
 
 #FUNCTIONS TO PLAY GAME
+#FOR PLAYER
 function playerPlay(){
 	read -p "Enter x : " x
 	read -p "Enter y : " y
@@ -51,17 +54,25 @@ function playerPlay(){
 		echo "You can't place There."
 	fi
 }
-
+#FOR CPU(COMPUTER)
 function cpuPlay(){
-	x=$(( RANDOM%3 ))
-	y=$(( RANDOM%3 ))
-	local index=$(( $x*3+$y ))
-	if [ ${board[$index]} == "." ]
+	local index=0
+	checkWinMove
+	if [ $winMove != "." ]
 	then
-		board[$index]=$CPU
+		index=$winMove
 	else
-		cpuPlay
+		x=$(( RANDOM%3 ))
+		y=$(( RANDOM%3 ))
+		index=$(( $x*3+$y ))
 	fi
+	if [ ${board[$index]} == "." ]
+		then
+			board[$index]=$CPU
+		else
+			cpuPlay
+		fi
+
 }
 
 #FUNCTION TO CHECK WIN
@@ -83,16 +94,47 @@ function gameCheck(){
 	check 2 4 6
 }
 
+#FUNCTION FOR CHECKING WIN MOVE
+function checkMove(){
+	if [ ${board[$1]} == "." ] && [ ${board[$2]} == ${board[$3]} ] ||
+		[ ${board[$2]} == "." ] && [ ${board[$1]} == ${board[$3]} ] ||
+		[ ${board[$3]} == "." ] && [ ${board[$2]} == ${board[$1]} ]
+	then
+		if [ ${board[$1]} == "." ]
+		then
+			winMove=$1
+		elif [ ${board[$2]} == "." ]
+		then
+			winMove=$2
+		elif [ ${board[$3]} == "." ]
+		then
+			winMove=$3
+		fi
+	fi
+}
+
+function checkWinMove(){
+	checkMove 0 1 2
+	checkMove 3 4 5
+	checkMove 6 7 8
+	checkMove 0 3 6
+	checkMove 1 4 7
+	checkMove 2 5 8
+	checkMove 0 4 8
+	checkMove 2 4 6
+}
+
+#PLAYING GAME
 reset
 assign
 toss
-	if [ $player == $PLAYER ]
-	then
-		playerPlay
-	elif [ $player == $CPU ]
-	then
-		cpuPlay
-	fi
+if [ $player == $PLAYER ]
+then
+	playerPlay
+elif [ $player == $CPU ]
+then
+	cpuPlay
+fi
 print
 gameCheck
 
